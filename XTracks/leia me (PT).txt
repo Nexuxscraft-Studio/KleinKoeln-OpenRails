@@ -1,0 +1,30 @@
+XTracks - Guia de Instalação
+por Okrasa Ghia (okrasa@xtracks.tk)
+tradução por Rui Fonseca (www.cpvirtual.org)
+
+Nunca construir Linhas, nem nunca usou o Xtracks?
+Acabou de fazer download de uma Linha que foi feita usando o Xtracks e que necessita dele para funcionar?
+Isto é para si:
+(Editores de Linhas: façam o download e leiam a documentação dos extras para aqueles que fazem edição e construção de Linhas).
+
+1. Faça uma cópia a pasta 'Train Simulator\GLOBAL' de modo a que fique seguro.
+
+2. Copie o conteúdo de 'XTracks\GLOBAL\SHAPES' para a pasta
+   'Train Simulator\GLOBAL\SHAPES'. Pode substituir todos os ficheiros.
+
+3. Copie o ficheiro 'XTracks\GLOBAL\TSECTION.DAT' para a pasta 'Train Simulator\GLOBAL'.
+   Vai aparecer a pergunta: "Pretende substituir o ficheiro existente ...
+   modificado... por este? ... modificado:...". 
+   Se a data do ficheiro (do primeiro) é mais RECENTE do que a data
+   do outro ficheiro(do segundo) então responda 'Não'. 
+   Se o ficheiro que está a copiar for mais recente então responda 'Sim'.
+   SE não obteve nenhuma caixa de mensagem com esta pergunta então é porque fez alguma coisa errada.
+
+4. E pronto, boa viajem na sua nova Linha!
+
+Se tiver algum problema peça ajuda tanto no fórum em www.train-sim.com ou em
+www.uktrainsim.com (outros fóruns também poderão dar ajuda) ou envie um e-mail ao
+autor da Linha. Alternativamente, também me pode enviar uma mail ou tentar obter ajuda lendo a documentação 
+em XTracks.htm que acompanha o pack extra XTracks, para os editores de linhas. NÂO ENTRE EM PANICO!
+
+/Okrasa

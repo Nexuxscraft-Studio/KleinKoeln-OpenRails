@@ -1,0 +1,1584 @@
+///////////////////////////////////////////////////////////////////////////////
+// Signal Type Logic Scripts
+//
+
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT JP3Light
+
+// Japanese 3 light signal head
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+// If required, show the 'stop' indication.
+	if (!enabled ||								// Not enabled/cleared to show natural state?
+		block_state() !=# BLOCK_CLEAR ||		// Block ahead not clear?
+		!route_set())							// Switch not set as per link?
+	{
+		state = SIGASP_STOP;
+	}
+// Signal head is enabled and the block ahead is clear - update based on state of
+// next signal head.
+	else
+	{
+		next_state = next_sig_lr (SIGFN_NORMAL);
+
+		if (next_state ==# SIGASP_STOP)
+		{
+			state = SIGASP_APPROACH_3;
+		}
+		else // if (next_state ==# SIGASP_APPROACH_3 ||
+			//   next_state ==# SIGASP_CLEAR_2)
+		{
+			state = SIGASP_CLEAR_2;
+		}
+	}
+
+// Get draw state
+	draw_state = def_draw_state (state);
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT JP4Light
+
+// Japanese 4 light signal head
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+// If required, show the 'stop' indication.
+	if (!enabled ||								// Not enabled/cleared to show natural state?
+		block_state() !=# BLOCK_CLEAR ||		// Block ahead not clear?
+		!route_set())							// Switch not set as per link?
+	{
+		state = SIGASP_STOP;
+	}
+// Signal head is enabled and the block ahead is clear - update based on state of
+// next signal head.
+	else
+	{
+		next_state = next_sig_lr (SIGFN_NORMAL);
+
+		if (next_state ==# SIGASP_STOP)
+		{
+			state = SIGASP_APPROACH_2;
+		}
+		else if (next_state ==# SIGASP_APPROACH_2)
+		{
+			state = SIGASP_APPROACH_3;
+		}	
+		else //if (next_state ==# SIGASP_APPROACH_3 ||
+			//   next_state ==# SIGASP_CLEAR_2)
+		{
+			state = SIGASP_CLEAR_2;
+		}
+	}
+
+// Get draw state
+	draw_state = def_draw_state (state);
+
+// End of File
+
+SCRIPT ML_STRABSIG_1g
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	def_draw_state ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	extern float	sig_feature ();
+
+	extern float debug_header();
+	extern float debug_out();
+
+	float		next_state;
+	
+	if  (  ( !enabled && !sig_feature( SIGFEAT_USER4 )  )  || 	block_state() ==# BLOCK_OCCUPIED )					// Block ahead not clear?
+	{
+		state = SIGASP_STOP;
+		draw_state = def_draw_state (state);
+//			debug_out(100);
+	}
+	else
+	{
+		state = SIGASP_CLEAR_1;
+		draw_state = def_draw_state (state);
+	}
+	
+
+// Get draw state
+	draw_state = def_draw_state (state);
+
+SCRIPT ML_STRABSIG_1r
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	def_draw_state ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	extern float	sig_feature ();
+
+	extern float debug_header();
+	extern float debug_out();
+
+	float		next_state;
+	
+	if  (  ( !enabled && !sig_feature( SIGFEAT_USER4 )  )  || 	block_state() ==# BLOCK_OCCUPIED )					// Block ahead not clear?
+	{
+		state = SIGASP_STOP;
+		draw_state = def_draw_state (state);
+//			debug_out(100);
+	}
+	else
+	{
+		state = SIGASP_CLEAR_1;
+		draw_state = def_draw_state (state);
+	}
+	
+
+// Get draw state
+	draw_state = def_draw_state (state);
+
+SCRIPT ML_STRABSIG_1l
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	def_draw_state ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	extern float	sig_feature ();
+
+	extern float debug_header();
+	extern float debug_out();
+
+	float		next_state;
+	
+	if  (  ( !enabled && !sig_feature( SIGFEAT_USER4 )  )  || 	block_state() ==# BLOCK_OCCUPIED )					// Block ahead not clear?
+	{
+		state = SIGASP_STOP;
+		draw_state = def_draw_state (state);
+//			debug_out(100);
+	}
+	else
+	{
+		state = SIGASP_CLEAR_1;
+		draw_state = def_draw_state (state);
+	}
+	
+
+// Get draw state
+	draw_state = def_draw_state (state);
+
+
+
+//////////////////////////////////////////////////////////////////
+/////
+///// Hauptsignale Oberirdisch
+///// Fahrsignale F0-F3, F0/F1, F0/F1+Zs2 + Konfigurationssignal
+///// Weichensignale Wn8, Wn9, Wn10 + Konfigurationssignal
+///// Hauptsignale U-Bahn + Zusatzanzeiger Zs3-"2" bei besetztem Gleis + Konfigurationssignal
+/////
+///// Copyright Stefan Sutter, 2012
+/////
+//////////////////////////////////////////////////////////////////
+
+SCRIPT KVB_Signal_oben
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	if (!enabled ||	block_state() !=# BLOCK_CLEAR || !route_set())
+	{
+		state = SIGASP_STOP;
+	}
+	else
+	{
+		next_state = next_sig_lr (SIGFN_NORMAL);
+
+		if (next_state ==# SIGASP_STOP)
+		{
+			state = SIGASP_APPROACH_3;
+		}
+		else
+		{
+			state = SIGASP_CLEAR_2;
+		}
+	}
+
+	draw_state = def_draw_state (state);
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT KVB_Signal_oben2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	if (!enabled ||	block_state() !=# BLOCK_CLEAR || !route_set())
+	{
+		state = SIGASP_STOP;
+	}
+	else
+	{
+		next_state = next_sig_lr (SIGFN_NORMAL);
+
+		if (next_state ==# SIGASP_STOP)
+		{
+			state = SIGASP_APPROACH_3;
+		}
+		else
+		{
+			state = SIGASP_CLEAR_2;
+		}
+	}
+
+	draw_state = def_draw_state (state);
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT KVB_Signal_oben_hp1
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	if (!enabled || block_state() !=# BLOCK_CLEAR || !route_set())
+	{
+		state = SIGASP_STOP;
+	}
+	else
+	{
+		state = SIGASP_CLEAR_2;		
+	}	
+
+	draw_state = def_draw_state(state);
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT KVB_Signal_oben_hp3
+
+	extern 	float	block_state ();
+	extern 	float	route_set ();
+	extern 	float	def_draw_state ();
+	extern 	float	state;
+	extern 	float	draw_state;
+	extern 	float	enabled;
+
+	if (!enabled || block_state() !=# BLOCK_CLEAR || !route_set())
+	{
+		state = SIGASP_STOP;
+	}
+	else
+	{
+		state = SIGASP_APPROACH_3;
+	}
+
+	draw_state = def_draw_state(state);
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT KVB_Signal_oben_40
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	if (!enabled ||	block_state() !=# BLOCK_CLEAR || !route_set()) {
+		state = SIGASP_STOP;
+	}
+	else
+	{
+		state = SIGASP_APPROACH_3;
+	}
+
+	draw_state = def_draw_state (state);
+
+/////////////////////////////////////////////////////////////////	
+// Geschwindigkeitspruefer vor Hp0
+
+SCRIPT GUE_Indusi
+
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	sig_feature ();
+	extern float	draw_state;
+	extern float	next_sig_lr ();
+	extern float	block_state ();
+	extern float	dist_multi_sig_mr();
+	
+	float next_hp;
+	float next_gue;
+	
+	next_hp = next_sig_lr ( SIGFN_NORMAL );
+	next_gue = dist_multi_sig_mr ( SIGFN_SHUNTING, SIGFN_NORMAL );
+
+	state = 7;
+	
+	if ( block_state() !=# BLOCK_CLEAR ) {
+		state = 0;
+		return;
+	} else {
+		if ( next_hp ==# 0 ) {
+			if ( next_hp ==# 0 && next_gue !=# 2 ) {
+				if ( sig_feature ( SIGFEAT_USER1 ) ) {
+					state = 1;
+					return;
+				} else {
+					if ( sig_feature ( SIGFEAT_USER2 ) ) {
+						state = 2;
+						return;
+					} else {
+						//Safety First
+						state = 0;
+						return;
+					}
+				}
+			} else {
+				state = 0;
+			}
+		} else {
+			if ( next_hp ==# 1 && sig_feature ( SIGFEAT_USER1 ) ) {
+				state = 3;
+				return;
+			} else {
+				if ( next_hp ==# 2 && sig_feature ( SIGFEAT_USER2 ) ) {
+					state = 4;
+					return;
+				} else {
+					if ( next_hp >=# 3 && next_hp <=# 5 ) {
+						state = 5;
+						return;
+					} else {
+						if ( next_hp >=# 7 ) {
+							state = 7;
+							return;
+						} else {
+							state = 7;
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	draw_state = def_draw_state ( state );
+	
+	return;
+	
+/////////////////////////////////////////////////////////////////	
+
+//Geschwindigkeitspruefer vor Hp0
+
+SCRIPT GUE
+
+	extern float	state;
+	extern float	this_sig_lr ();
+	extern float	block_state ();
+		
+	float this_state;
+	
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	
+	//state = 0 := GUE aus
+	//state = 1 := GUE aktiv
+	//state = 2 := GUE Block besetzt
+	
+	state = 1;
+	
+	if ( block_state() !=# BLOCK_CLEAR ) {
+		state = 2;
+		return;
+	} else {
+		if ( this_state ==# 0 ) {
+			state = 1;
+			return;
+		} else {
+			if ( this_state ==# 5 || this_state ==# 7 ) {
+				state = 0;
+				return;
+			} else {
+				state = 1;
+				return;
+			}
+		}
+	}
+	
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_main
+
+	extern float	block_state ();
+	extern float	sig_feature ();
+	extern float	route_set ();
+	extern float	enabled;
+	extern float	state;
+	extern float	draw_state;
+	extern float	next_sig_mr ();
+	
+	float			next_state;
+	
+	next_state = next_sig_mr ( SIGFN_DISTANCE );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( block_state() !=# BLOCK_CLEAR or next_state < 3 ) {
+		state = 0;
+		return;
+	} else {		
+		if ( block_state() ==# BLOCK_CLEAR and next_state >=# 0 and next_state <=# 7 ) {
+			state = next_state;
+			return;
+		}
+	}
+	
+	return;
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_f0
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 1;
+
+	if ( this_state < 3 ) {
+		draw_state = 0;
+		return;
+	}
+	
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_f1
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state ==# 7 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_f1_zs2
+
+	//Nur, wenn am Signal ein Zs2-Richtungsanzeiger aktiviert ist
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state >=# 4 && this_state <=# 7 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_f2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state ==# 4 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_f3
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( this_state ==# 3 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_zs2_a1
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state ==# 7) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_zs2_a2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state ==# 6) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_zs2_b3
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state ==# 5) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT fahrsignal_zs2_b4
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	
+	if ( this_state ==# 4) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+/////////////////////////////////////////////////////////////////	
+	
+SCRIPT fahrsignal_konfig
+
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	sig_feature ();
+	extern float	draw_state;
+
+	state = 7;
+	draw_state = 0;
+	draw_state = def_draw_state (state);
+	
+	if (sig_feature ( SIGFEAT_USER1 )) {
+		state = 0;
+		//return;
+	} else {
+		if (sig_feature ( SIGFEAT_USER2 )) {
+			state = 7;
+			//return;
+		} else {
+			if (sig_feature ( SIGFEAT_USER3 )) {
+				state = 4;
+				//return;
+			} else {
+				if (sig_feature ( SIGFEAT_USER4 )) {
+					state = 3;
+					//return;
+				} else {
+					state = 0;
+					//return;
+				}
+			}
+		}
+	}
+	
+	//return;
+	
+/////////////////////////////////////////////////////////////////	
+	
+SCRIPT fahrsignal_konfig_zs2
+
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	sig_feature ();
+	extern float	draw_state;
+
+	state = 7;
+	draw_state = 0;
+	draw_state = def_draw_state (state);
+	
+	if (sig_feature ( SIGFEAT_NUMBER_PLATE )) {
+		state = 0;
+		//return;
+	} else {
+		if (sig_feature ( SIGFEAT_USER1 )) {
+			state = 7;
+			//return;
+		} else {
+			if (sig_feature ( SIGFEAT_USER2 )) {
+				state = 6;
+				//return;
+			} else {
+				if (sig_feature ( SIGFEAT_USER3 )) {
+					state = 5;
+					//return;
+				} else {
+					if (sig_feature ( SIGFEAT_USER4 )) {
+						state = 4;
+						//return;
+					} else {
+						state = 0;
+						//return;
+					}
+				}
+			}
+		}
+	}
+	
+	//return;
+
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT weichensignal_main
+
+	extern float	block_state ();
+	extern float	sig_feature ();
+	extern float	route_set ();
+	extern float	enabled;
+	extern float	state;
+	extern float	draw_state;
+	extern float	next_sig_mr ();
+	
+	float			next_state;
+	
+	next_state = next_sig_mr ( SIGFN_DISTANCE );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( block_state() !=# BLOCK_CLEAR or next_state < 3 ) {
+		state = 1;
+		return;
+	} else {		
+		if ( block_state() ==# BLOCK_CLEAR ) {
+			state = next_state;
+			return;
+		}
+	}
+	
+	return;
+	
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT weichensignal_wn8
+
+	//Weiche gerade mit Vmax=15
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( this_state ==# 3 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;	
+
+
+/////////////////////////////////////////////////////////////////
+
+SCRIPT weichensignal_wn9
+
+	//Weiche rechts mit Vmax=15
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( this_state ==# 4 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT weichensignal_wn10
+
+	//Weiche rechts mit Vmax=15
+	
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( this_state ==# 5 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+
+	
+/////////////////////////////////////////////////////////////////	
+	
+SCRIPT weichensignal_konfig
+
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	sig_feature ();
+	extern float	draw_state;
+
+	state = 7;
+	draw_state = 0;
+	draw_state = def_draw_state (state);
+	
+	if (sig_feature ( SIGFEAT_USER1 )) {
+		//Wn8 Gerade
+		state = 3;
+		//return;
+	} else {
+		if (sig_feature ( SIGFEAT_USER2 )) {
+			//Wn9 Rechts
+			state = 4;
+			//return;
+		} else {
+			if (sig_feature ( SIGFEAT_USER3 )) {
+				//Wn10 Links
+				state = 5;
+				//return;
+			} else {
+				//Fehler - Signal dunkel!
+				state = 1;
+				//return;
+			}
+		}
+	}
+	
+	//return;
+	
+	
+/////////////////////////////////////////////////////////////////	
+	
+SCRIPT zs3_konfig
+
+	//Zeigt Zs3 20km/h bei besetztem Gleisabschnitt
+	
+	extern float	block_state ();
+	extern float	next_sig_lr ();
+	extern float	state;	
+	extern float	draw_state;
+	
+	float next_state;
+	
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+
+	state = 2;
+	//draw_state = 0;
+		
+	if ( block_state() !=# BLOCK_CLEAR ) {
+		state = 2;
+		return;
+	} else {
+		if ( block_state() ==# BLOCK_CLEAR && next_state ==# 0 ) {
+			state = 1;
+			return;
+		} else {
+			if ( block_state() ==# BLOCK_CLEAR && next_state >=# 3 && next_state < 6 ) {
+				state = 5;
+				return;		
+			} else {
+				if ( block_state() ==# BLOCK_CLEAR && next_state >=# 6 ) {
+					state = 7;
+					return;
+				}
+			}
+		}
+	}
+	
+	return;
+	
+/////////////////////////////////////////////////////////////////	
+	
+SCRIPT zs3-20
+
+	//Zs3 20km/h für Fahrt in einen besetzten Gleisabschnitt
+	
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	sig_feature ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	enabled;
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+
+	float			this_state;
+
+	this_state 	= this_sig_lr ( SIGFN_NORMAL );
+
+	state = 7;
+	draw_state = 0;
+
+	if ( this_state ==# 3 ) {
+		draw_state = 0;
+		return;
+	} else {
+		draw_state = 1;
+		return;
+	}
+
+	return;
+	
+	
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT Hauptsignal
+
+// Hauptsignal U-Bahn
+
+	extern float	block_state ();
+	extern float	route_set();
+	extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	dist_multi_sig_mr();
+	extern float	sig_feature();
+
+	float next_hp;
+	float next_gue;
+	
+	state = 0;
+	
+	next_hp = next_sig_lr ( SIGFN_NORMAL );
+	next_gue = dist_multi_sig_mr ( SIGFN_SHUNTING, SIGFN_NORMAL );	
+	
+	if ( next_gue ==# 0 ) {
+		// Normale Hauptsignalskonfiguration ohne Geschwindigkeitspruefabschnitte
+		if ( route_set() && block_state() ==# BLOCK_CLEAR && next_hp ==# 2 ) {
+			//Hp3 mit Zs3-20
+			state = 3;
+		} else {	
+			if ( block_state() !=# BLOCK_CLEAR || !route_set() ) {
+				//Hp0
+				state = 0;
+			} else {
+				if ( sig_feature ( SIGFEAT_USER1 ) || (route_set() && block_state() ==# BLOCK_CLEAR && ( next_hp <=# 1 || next_hp ==# 3 ) ) ) {
+					//Hp3
+					state = 5;
+				} else  {
+					//Hp1
+					state = 7;
+				}
+			}
+		}
+	} else {
+		//Alternative Hauptsignalskonfiguration mit Geschwindigkeitspruefabschnitten vor Hp0
+		if ( block_state() !=# BLOCK_CLEAR || next_hp ==# 0 ) {
+			state = 0;
+		} else {
+			if ( next_hp >=# 1 || next_hp <=# 4 ) {
+				state = 5;
+			} else {
+				//Safety First
+				state = 0;
+			}
+		}
+	}
+
+	draw_state = def_draw_state ( state );
+	
+/////////////////////////////////////////////////////////////////
+
+SCRIPT SH2
+
+// Schutzhaltsignal Sh2
+
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	
+	state = 0;
+
+	draw_state = def_draw_state (state);
+
+	return;
+
+/////////////////////////////////////////////////////////////////
+/////
+///// Ende KVB-Signale
+/////
+/////////////////////////////////////////////////////////////////
+
+
+SCRIPT BK_Hp_Li_DB_Gsp
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			next_state;
+	float			this_state;
+
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+
+	if ( !enabled )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+
+	if ( block_state() !=# BLOCK_CLEAR )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+		{
+		state = SIGASP_APPROACH_1;
+		}
+	if ( block_state() ==# BLOCK_JN_OBSTRUCTED )
+		{
+		state = SIGASP_STOP;
+		}
+
+	}
+	draw_state = def_draw_state (state);
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Gsp_1
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			next_state;
+	float			this_state;
+
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+
+	if ( !enabled )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+
+	if ( block_state() !=# BLOCK_CLEAR )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+		{
+		state = SIGASP_APPROACH_1;
+		}
+	if ( block_state() ==# BLOCK_JN_OBSTRUCTED )
+		{
+		state = SIGASP_STOP;
+		}
+
+	}
+	draw_state = def_draw_state (state);
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Hp_kompakt_Aus
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	sig_feature ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			has_number_plate;
+	float			has_gradient_plate;
+	float			next_state;
+	float			this_state;
+	float			next_state_mr;
+
+	has_number_plate   = sig_feature ( SIGFEAT_NUMBER_PLATE );
+	has_gradient_plate = sig_feature ( SIGFEAT_GRADIENT_PLATE );
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	next_state_mr = next_sig_mr ( SIGFN_NORMAL );
+
+
+	if ( !enabled )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+
+
+	if ( block_state() !=# BLOCK_CLEAR )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+		state = SIGASP_CLEAR_2;
+
+	}
+	if ( block_state() ==# BLOCK_JN_OBSTRUCTED )
+		{
+		state = SIGASP_STOP;
+		}
+	}
+	draw_state = def_draw_state (state);
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Hp_kompakt_V
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	sig_feature ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			has_number_plate;
+	float			has_gradient_plate;
+	float			next_state;
+	float			this_state;
+	float			next_state_mr;
+
+	has_number_plate   = sig_feature ( SIGFEAT_NUMBER_PLATE );
+	has_gradient_plate = sig_feature ( SIGFEAT_GRADIENT_PLATE );
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	next_state_mr = next_sig_mr ( SIGFN_NORMAL );
+
+
+		if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED || next_state ==# SIGASP_RESTRICTING )
+			{
+			state = SIGASP_STOP;
+			}
+		else
+		{
+			if ( next_state ==# SIGASP_APPROACH_1 )
+				{
+				state = SIGASP_APPROACH_1;
+				}
+			else
+			{
+				if ( next_state ==# SIGASP_APPROACH_2 )
+					{
+					state = SIGASP_APPROACH_2;
+					}
+				else
+				{
+					if ( next_state ==# SIGASP_APPROACH_3 )
+						{
+						state = SIGASP_APPROACH_3;
+						}
+					else
+					{
+					state = SIGASP_CLEAR_2;
+					}
+				}
+			}
+		}
+		if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED || this_state ==# SIGASP_RESTRICTING )
+			{
+			state = SIGASP_STOP_AND_PROCEED;
+			}
+
+	draw_state = def_draw_state (state);
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Hp_kompakt_Aus40
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	sig_feature ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			has_number_plate;
+	float			has_gradient_plate;
+	float			next_state;
+	float			this_state;
+	float			next_state_mr;
+
+	has_number_plate   = sig_feature ( SIGFEAT_NUMBER_PLATE );
+	has_gradient_plate = sig_feature ( SIGFEAT_GRADIENT_PLATE );
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	next_state_mr = next_sig_mr ( SIGFN_NORMAL );
+
+
+	if ( !enabled )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+
+	if ( block_state() !=# BLOCK_CLEAR )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+		state = SIGASP_APPROACH_1;
+	}
+	if ( block_state() ==# BLOCK_JN_OBSTRUCTED )
+		{
+		state = SIGASP_STOP;
+		}
+	}
+	draw_state = def_draw_state (state);
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Hp_kompakt_Vw
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	sig_feature ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			has_number_plate;
+	float			has_gradient_plate;
+	float			next_state;
+	float			this_state;
+	float			next_state_mr;
+
+	has_number_plate   = sig_feature ( SIGFEAT_NUMBER_PLATE );
+	has_gradient_plate = sig_feature ( SIGFEAT_GRADIENT_PLATE );
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	next_state_mr = next_sig_mr ( SIGFN_NORMAL );
+
+
+		if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED || next_state ==# SIGASP_RESTRICTING )
+			{
+			state = SIGASP_STOP;
+			}
+		else
+		{
+			if ( next_state ==# SIGASP_APPROACH_1 )
+				{
+				state = SIGASP_APPROACH_1;
+				}
+			else
+			{
+				if ( next_state ==# SIGASP_APPROACH_2 )
+					{
+					state = SIGASP_APPROACH_2;
+					}
+				else
+				{
+					if ( next_state ==# SIGASP_APPROACH_3 )
+						{
+						state = SIGASP_APPROACH_3;
+						}
+					else
+					{
+					state = SIGASP_CLEAR_2;
+					}
+				}
+			}
+		}
+		if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED || this_state ==# SIGASP_RESTRICTING )
+			{
+			state = SIGASP_STOP_AND_PROCEED;
+			}
+
+	draw_state = def_draw_state (state);
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Hp_kompakt_Block
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	sig_feature ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			has_number_plate;
+	float			has_gradient_plate;
+	float			next_state;
+	float			this_state;
+	float			next_state_mr;
+
+	has_number_plate   = sig_feature ( SIGFEAT_NUMBER_PLATE );
+	has_gradient_plate = sig_feature ( SIGFEAT_GRADIENT_PLATE );
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	next_state_mr = next_sig_mr ( SIGFN_NORMAL );
+
+
+	if ( !enabled )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+
+
+	if ( block_state() !=# BLOCK_CLEAR )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+		state = SIGASP_CLEAR_2;
+
+	}
+	if ( block_state() ==# BLOCK_JN_OBSTRUCTED )
+		{
+		state = SIGASP_STOP;
+		}
+	}
+	draw_state = def_draw_state (state);
+
+///////////////////////////////////////////////////////////////////////////////
+SCRIPT BK_Hp_kompakt_Ein
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_lr ();
+	extern float	this_sig_lr ();
+	extern float	next_sig_mr ();
+	extern float	sig_feature ();
+	extern float	def_draw_state ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+
+	float			has_number_plate;
+	float			has_gradient_plate;
+	float			next_state;
+	float			this_state;
+	float			next_state_mr;
+
+	has_number_plate   = sig_feature ( SIGFEAT_NUMBER_PLATE );
+	has_gradient_plate = sig_feature ( SIGFEAT_GRADIENT_PLATE );
+	next_state = next_sig_lr ( SIGFN_NORMAL );
+	this_state = this_sig_lr ( SIGFN_NORMAL );
+	next_state_mr = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( !enabled )
+		{
+		state = SIGASP_STOP;
+		}
+	else 
+	{
+
+
+	if ( block_state() !=# BLOCK_CLEAR )
+		{
+		state = SIGASP_STOP;
+		}
+	else
+	{
+		if ( !route_set () )
+			{
+			state = SIGASP_APPROACH_2;
+			}
+		else
+			{
+			state = SIGASP_CLEAR_2;
+			}
+
+	}
+	}
+
+	draw_state = def_draw_state (state);
+
+
+

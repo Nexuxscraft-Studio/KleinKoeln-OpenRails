@@ -1,0 +1,24 @@
+XTracks Version v3.20 standard edition
+by Okrasa Ghia (okrasa@xtracks.tk)
+Includes tsection.dat build #38
+Installer made with QSetup by http://www.pantaray.com
+================================
+You don't build routes, you have never before used XTracks.
+You have just downloaded a route that says something about it 
+using XTracks and that YOU need to install XTracks for it to work.
+
+This is for you (route builders need the extras package also).
+
+1. Make a copy of the folder 'Train Simulator\GLOBAL' somewhere safe.
+
+2. Accept the option at the dialogue box on the next screen to add XTracks to MSTS.
+The dialogue box on the next screen should point to your "Train Simulator" folder.
+
+3. Done, happy railroading on your new route!
+
+Please note that your tsection.dat file will not be replaced if newer than the one supplied with this installer.
+================================
+XTracks will add shapes (3265 .s & .sd files) to the "Train Simulator\GLOBAL\SHAPES" folder and update the file "tsection.dat" in the "Train Simulator\GLOBAL" folder. Additionally, "read me" files will be installed into a "Train Simulator\XTracks" folder which also contains the MSTS "Original tsection.dat" and a backup of your "Old tsection.dat" (later updates will not overwrite this file). These files can be very usefull if you experience any problems after the installation. In the "Train Simulator" folder is a "Setup.log" file with information from the installation if you have any problems. Nothing else is affected. No menu shortcuts or uninstallers added.
+================================
+If you run into problems ask for help either at the forum at www.train-sim.com or www.uktrainsim.com (other forums might also be able to help) or mail the person that made the route. 
+For further information and notices on the latest release please visit the XTracks web-site at http://www.xtracks.tk.

@@ -1,0 +1,32 @@
+XTracks installatie handleiding
+van Okrasa Ghia (okrasa@xtracks.tk)
+vertaling: Andre@mstrainstop.com
+
+U maakt geen routes, u hebt XTracks nooit eerder gebruikt.
+U heeft zojuist een route gedownload dat iets zegt over het gebruik van XTracks
+en dat U XTracks geinstalleerd moet hebben voordat u de route in MSTS kan gebruiken.
+Dan is dit voor u.
+(Routebouwers: download en lees de documentatie in het routebouwers extra pakket).
+
+1. Maak een copy van de map 'Train Simulator\GLOBAL', ergens op een veilige plaats.
+
+2. Kopieer de inhoud van de map 'XTracks\GLOBAL\SHAPES' in de map
+   'Train Simulator\GLOBAL\SHAPES', overschrijf hierbij ALLE bestanden als daarom gevraagd wordt.
+
+3. Kopieer het bestand 'XTracks\GLOBAL\TSECTION.DAT' in de map 'Train Simulator\GLOBAL'.
+   Er zal een vraag verschijnen met "Wilt u het bestaande bestand: ... van de laatste datum van wijziging
+   ... vervangen door het onderstaande bestand?....met andere laatste datum van wijziging".
+   Als de datum van het bestand dat overschreven gaat worden later is dan die van uit
+   de XTracks map dan dient u deze vraag met 'Nee' te beantwoorden.
+   Als de datum van het XTracks bestand nieuwer is dan dient de vraag met 'Ja' beantwoord te worden.
+   Als de vraag helemaal niet verschijnt heeft u iets fout gedaan. Herhaal dan deze stap.
+
+4. Gedaan, veel plezier met MSTS op uw nieuwe route!
+
+Als u alsnog problemen hebt met deze installatie dan kunt u hulp vragen via de forums van
+www.train-sim.com en/of www.uktrainsim.com (op andere forums kunt u wellicht ook terecht
+met vragen over XTracks). Een andere optie is dat u mij e-mailt (in het engels) of u leest
+de documentatie van XTracks.htm in het route bouwers Extra pakket.
+In ieder geval is er geen reden tot paniek!
+
+/Okrasa

@@ -1,0 +1,62 @@
+Original Model: Manfred Laugwitz
+Emailadresse: djgramusel@kleiner-dj.de
+
+Adaption einer Gmeinder D100 BB zur Vossloh/MaK G1000BB.
+Die Datei MaWeMaK.zip Entpacken nach .../Trains/Trainset/
+
+Führerstand und Fahrgeräusch GP38 Alias
+
+Bei dieser Lok handelt es sich um Freeware. 
+
+Die Lok und die dazugehörigen Grafiken unterliegen dem Urheberrechtschutz.
+
+Bei Bereitstellung und Repaints bitten wir um eine kurze Nachricht um über Updates informieren zu können.
+
+Für die Funktion und eventuelle Schäden wird keine Haftung übernommen.
+
+Viel Spass!
+
+Manfred L.
+
+Besonderen Dank an Bildermicha für seine Unterstützung!
+
+http://www.bw-westbahn.de/ die Adresse für die aussergewöhlicheren Bahnfahrzeuge.
+
+##############################################
+
+Umlackiert zur HGK DE81
+
+von: Werner Spieker
+Mail: wspieker@onlinehome.de
+
+Lok ist komplett mit Fahrgeräusch und Führerstand GP38 Alias.
+
+Installation:
+
+Zip nach ..trains/trainset entpacken.
+
+Aus dem Lokordner "HGK DE81" die Consist mittels 0machecon.bat kopieren (doppelklick drauf und fertig).
+
+Im MSTS "HGK DE81" wählen.
+
+*************************************************************************
+
+REPAINT HGK DE81
+
+by: Werner Spieker
+mail: wspieker@onlinehome.de
+
+Locomotive is complete with Sound and cab GP38 Alias.
+
+Installation:
+
+Extract zipfile to...trains/trainset.
+
+Copy consist file from "HGK DE81" with 0machecon.bat (doubleclick).
+
+Choose "HGK DE81" in your MSTS.
+
+Text von Ingo Wittenberg - von wespe angepasst!
+
+wespe
+wspieker@onlinehome.de

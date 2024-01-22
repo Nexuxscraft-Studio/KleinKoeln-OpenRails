@@ -1,0 +1,33 @@
+XTracks Installationshinweise
+by Okrasa Ghia (okrasa@xtracks.tk)
+Übersetzung OldieDaddy
+
+Sie bauen keine Strecken, Sie haben XTracks noch nie eingesetzt, oder wollen Ihre
+Version auffrischen. Sie haben gerade eine Strecke runtergeladen, wo was über die
+notwendige Verfügbarkeit von XTracks steht, und daß SIE es installieren müssen,
+um die Strecke befahren zu können. Dann sind Sie hier richtig !
+(Streckenbauer: Sie brauchen zusätzlich MSTS XTracks Route Builders Extras v3.4,
+erhältlich bei www.train-sim.com oder www.uktrainsim.com)
+
+1. Erstellen Sie UNBEDINGT eine Sicherheitskopie des Ordners
+   'Train Simulator\GLOBAL' und legen Sie sie sicher ab.
+
+2. Kopieren Sie den Inhalt des Ordners 'XTracks\GLOBAL\SHAPES' in den Ordner
+   'Train Simulator\GLOBAL\SHAPES', erlauben Sie das Überschreiben ALLER Dateien falls aufgefordert.
+
+3. Kopieren Sie die Datei 'XTracks\GLOBAL\TSECTION.DAT' in den Ordner 'Train Simulator\GLOBAL'.
+   Sie werden gefragt: "Wollen Sie die Datei ... zuletzt geändert (Datum)
+   ... mit der Datei ... zuletzt geändert (anderes Datum)".
+   Wenn das erste Datum SPÄTER ist, als das Datum meiner Datei (das zweite) antworten Sie 'Nein'.
+   Falls meines das neuere ist, antworten Sie 'Ja'.
+   Wenn Sie nicht gefragt werden, haben Sie was falsch getan.
+
+4. Fertig, viel Spaß beim Befahren Ihrer neuen Strecke!
+
+Falls Sie Fragen haben, ersuchen Sie Hilfe im Forum bei www.train-sim.com oder
+www.uktrainsim.com (bei The-train.de können Sie auch geholfen werden) oder mailen
+Sie den Streckenbauer an. Sie können es ebenfalls versuchen, mich anzuschreiben
+(auf englisch), oder die Dokumentation XTracks.htm im 'Route Builder Extras ' zu lesen.
+KEINE PANIK !
+
+/Okrasa

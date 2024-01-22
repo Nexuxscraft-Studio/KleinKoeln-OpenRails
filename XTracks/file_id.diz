@@ -1,0 +1,8 @@
+XTracks v3.20 standard edition setup (xtrack, x-track, x-tracks)
+Automatic installer for end users. Those wanting to get their 
+hands dirty should get the files only instead ('xtracksf.zip').
+Includes build #38 of the standardized tsection.dat.
+This is all that is needed if you don't build routes 
+(route builders get the 'extras' package also).
+Works for any route requiring version 2.0, 3.0 or later.
+By Okrasa Ghia and contributers (see www.xtracks.tk).

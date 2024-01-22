@@ -1,0 +1,31 @@
+XTracks installations vejledning
+skrevet af Okrasa Ghia (okrasa@xtracks.tk)
+oversat af Stig Christensen (team.routebuilders.dk)
+
+Du bygger ikke ruter, du har aldrig brugt XTracks før.
+Du har lige hentet en rute der siger et eller andet med at du skal
+installere XTracks for at ruten vil virke.
+Så er den her vejledning for dig
+(Rutebyggere: hent og læs dokumentationen i 'route builders extras').
+
+1. Lav en kopi af mappen 'Train Simulator\GLOBAL' et sikkert sted.
+2. Kopier indholdet af 'XTracks\GLOBAL\SHAPES' til mappen
+   'Train Simulator\GLOBAL\SHAPES', overskriv alle filer når du bliver spurgt
+
+3. Kopier filen 'XTracks\GLOBAL\TSECTION.DAT' til mappen 'Train Simulator\GLOBAL'.
+   Du vil få spørgsmålet : "Vil du erstatte denne fil ... sidst ændret dato
+   ... med filen ... sidst ændret dato_noget_andet".
+   Hvis dato'en på din egen fil (den første) er SENERE end dato'en
+   på min fil (den anden), skal du svare 'Nej'.
+   Hvis min fil er nyest, skal du svare 'Ja'.
+   Hvis du ikke får dette spørgsmål, har du gjort noget galt.
+
+4. Færdig, hav fornøjelse med din nye rute!
+
+Hvis du får problemer, kan du spørge om råd på forum'et på enten www.train-sim.com
+eller www.uktrainsim.com (andre fora kan måske også hjælpe), eller skriv til ham
+der har lavet ruten. Du kan også prøve at skrive til mig (svensk, dansk eller engelsk)
+eller læse dokumentationen i filen XTracks.htm som du finder i 'XTracks, route
+buidlers extras'. UNDGÅ at gå i PANIK.
+
+/Okrasa

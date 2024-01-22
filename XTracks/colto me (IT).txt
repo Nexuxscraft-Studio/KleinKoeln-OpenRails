@@ -1,0 +1,29 @@
+Guida di installazione degli XTracks
+di Okrasa Ghia (okrasa@xtracks.tk)
+Traduzione di Pasquale Nicolardi
+
+Se non realizzi Routes, non hai mai usato prima gli XTracks.
+Se hai scaricato una Route che necessita delle XTracks devi installare le
+XTracks per far funzionare correttamente lo Scenario.
+(Per i Realizzatori di Routes: scarica e leggi la documentazione della cartella XTracksR).
+
+1. Fai una copia della cartella "\Train Simulator\GLOBAL" in un luogo sicuro.
+2. Copia il contenuto della cartella "XTracks\GLOBAL\SHAPES" nella cartella
+   "\Train Simulator\GLOBAL\SHAPES", e quando richiesto sovrascrivi tutti i file.
+
+3. Copia il file "XTracks\GLOBAL\TSECTION.DAT" nella cartella "\Train Simulator\GLOBAL".
+   Alla domanda: "vuoi sostituire?" Devi:
+   Se la data del file (il primo) è più recente della data del mio file
+   (il secondo) devi rispondere "NO"
+   Se il mio file è più nuovo, devi rispondere "SI".
+   Se non appare nessuna domanda c'è qualcosa di sbagliato.
+
+4. Fatto. Buon Divertimento con la tua nuova Routes.
+
+Se incontri dei problemi, o chiedi aiuto al forum www.locod.it/forum o
+www.allfreenet.it/train-simulator (è probabile che gli altri forum siano in grado
+di aiutarti) o contatta la persona che ha realizzato lo Scenario.
+Puoi provare anche a contattarmi (in inglese) o puoi provare a leggere la
+documentazione "XTracks.htm" nella cartella /XTracksR. NON FARTI PRENDERE DAL PANICO!
+
+/Okrasa
